@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Baby names</title>
+    <meta charset="utf-8">
+
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">script></script>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.30/vega.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.2/vega-lite.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.js"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+    <script src="https://vega.github.io/datalib/datalib.min.js"></script>
+
+    <!-- Vega Tooltip
+    <script src="https://vega.github.io/vega-tooltip/vega-tooltip.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://vega.github.io/vega-tooltip/vega-tooltip.css">-->
+    <!-- Import Vega 3 & Vega-Lite 2 (does not have to be from CDN) -->
+   <link rel="stlesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vega-tooltip@0.16.0/vega-tooltip.scss">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vega-tooltip@0.16.0/build/vega-tooltip.min.js"></script>
+
+    <!-- <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: "#fffff";}</style> -->
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active">
+          <li><a href="github.com/phileasSamir">Our GitHub</a></li>
+          <li><a href="https://altair-viz.github.io/index.html">Altair</a></li>
+          <li><a href="https://vega.github.io/vega-lite/">Vega-Lite</a></li>
+          <li><a href="http://d3js.org/">D3</a></li>
+          <li><a href="http://flask.pocoo.org/">Flask</a></li>
+        </ul>
+        <h1>Baby Names</h1>
+      </div>
+
+      <div>
+        <h3>How to use:</h3>
+        <ul>
+        <li>You can search for a given name and the charts will reflect various informations about that name.</li>
+        <li>Please remove any accents in your request (Philéas -> Phileas). You can use dashes (e.g. Anne-Laure).</li>
+        <li>You can set a time range and the charts will adapt to said time range (usually, compute averages over the given range).</li>
+        <li>Searching for "unique" instead of a name will serve charts about name diversity.</li>
+        <li>When exploring name diversity, you can click on a department to get it's diversity curve over your selected time range.</li>
+        <li>Please don't try to break the app, it's probably very vulnerable :)</li>
+        </ul>
+        <h3>Interesting questions and trivia:</h3>
+        <ul>
+        <li>We can spot a high increase in volatility in the 1960s and a sudden drop in traditional french names. It is hard to say whether the Second Vatican Council catalyzed this process : the drop in popularity of traditional names was already started in urbanized areas (for instance the Seine department), however the drop followed in rural areas clearly after the Council and the 1968 events.</li>
+        <li>We can see historical migration waves : for instance, we can see italian and polish names early into the 20th century in mining regions (esp. in Moselle).</li>
+        <li>We can see the influence of wars : people lose creativity. This is particularly true for WW1.</li>
+        <li>Data for some Île-de-France départements is missing before the 1970s. This is because before 1968, the Yvelines, Essonne, Hauts-de-Seine, Seine-Saint-Denis, Val-d'Oise and Val-de-Marne départements were grouped within the Seine and Seine-et-Oise départements under the 75 and 78 codes. When interpreting maps before that date, you should take that into account.</li>
+        </ul>
+      </div>
+      <br>
+      {% if name %}
+      <div class="field-row" style="width: 35%; text-align: center; margin: auto;">
+        <form action="/" method="post" id="formsearch">
+          <div><input name="name" value="{{ name }}" id="name" type="text"></div>
+          <br>
+          <div>
+            <label for="sex">Sexe</label>
+            <select name="sex" id="sex">
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="">Either</option>
+            </select>
+          </div>
+          <br>
+          <div><label for="yearmin">Année de début</label><input name="yearmin" value="{{ yearmin }}" min="1900" max="2020" id="yearmin" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>1900</span></div>
+          <br>
+          <div><label for="yearmax">Année de fin</label><input name="yearmax" value="{{ yearmax }}" min="1900" max="2020" id="yearmax" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>2020</span></div>
+        </form>
+        <br>
+        <button type="submit" form="formsearch" value="search" style="font-size: 18px;">Search</button>
+      </div>
+      {% else %}
+      <div class="field-row" style="width: 35%; text-align: center; margin: auto;">
+        <form action="/" method="post" id="formsearch">
+          <div><input name="name" value="Lucien" id="name" type="text"></div>
+          <br>
+          <div>
+            <label for="sex">Sexe</label>
+            <select name="sex" id="sex">
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="">Either</option>
+            </select>
+          </div>
+          <br>
+          <div><label for="yearmin">Année de début</label><input name="yearmin" value="1900" min="1900" max="2020" id="yearmin" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>1900</span></div>
+          <br>
+          <div><label for="yearmax">Année de fin</label><input name="yearmax" value="2020" min="1900" max="2020" id="yearmax" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>2020</span></div>
+        </form>
+        <br>
+        <button type="submit" form="formsearch" value="search" style="font-size: 18px;">Search</button>
+      </div>
+      {% endif %}
+      <br>
+      {% if name %}
+      <div style="width: 35%;">
+        <h3>Your search: </h3>
+        <ul>
+          <li><b><i>Name</i></b> : {{ name }}</li>
+          <li><b><i>Sex</i></b> : {{ sex }}</li>
+          <li><b><i>Range</i></b> : {{ yearmin }}-{{ yearmax }}</li>
+        </ul>
+      </div>
+      {% endif %}
+      <br>
+
+      <div style="width: 90%;">
+        <div style="width: 90%;"><div style="width: 90%;" id="map"></div></div>
+       
+        <!-- Placeholder for the tooltip -->
+        <div id="vis-tooltip" class="vg-tooltip"></div>
+      </div>
+    </div>
+
+    <!-- Render Charts -->
+    <script type="text/javascript">
+      function parse(url, div) {
+        var opt = {
+          mode: "vega-lite",
+          renderer: "svg",
+          actions: {export: true, source: false, editor: false}
+        };
+
+        vegaEmbed("#"+div, url, opt, function(error, result) {
+          // result.view is the Vega View, url is the original Vega-Lite specification
+          vegaTooltip.vegaLite(result.view, url);
+        });
+      }
+      
+      parse("/data/map", "map");
+      // parse("/data/mapname", "mapname");
+   
+    </script>
+
+  </body>
+</html>
