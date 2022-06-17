@@ -1,4 +1,5 @@
 # Exploring french baby names
+## *Onomastics visualizations*
 *Mohamed FRIKHA, Zoubir LANSEUR, Philéas SAMIR, Gwladys SANCHEZ, Pooran SHAHDI*
 
 ### Introduction
