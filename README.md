@@ -25,7 +25,7 @@ In order to meet these requirements, we let the user supply a name, a gender and
 ### Choices made
 There can be several ways to express popularity and progression. We thought that the absolute count of a given name is not a reliable value, as it does not take into account the evolution of natality for instance. We rather calculated frequencies, at different scales (dep. or national), which is the ratio of the name count divided by all the births of the same sex for a given year.  
 The most/least popular name is the name that has the highest average national frequency over the considered time range.  
-The progressions are calculated as a difference of the national frequency from one year to another. So a "+1" progression could mean "from 10% frequency to 11% frequency", and also "from 20% to 21%". We could have made a relative progression, but we did not like the fact that a 1-to-2%-evolution would be a +100% progression, and a 10-to-15%-one would "only" be +50%, even though it is more impressive at a global scale.
+The progressions are calculated as a difference of the national frequency from one year to another. So a "+1" progression could mean "from 10% frequency to 11% frequency", and also "from 20% to 21%". We could have made a relative progression, but we did not like the fact that a 1-to-2%-evolution would be a +100% progression, and a 10-to-15%-one would "only" be +50%, even though it is more impressive at a global scale.  
 We excluded the "_PRENOM_RARES" rows as well as rows with missing department or year values.
 
 ### Answering the questions
