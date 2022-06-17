@@ -15,11 +15,13 @@ In order to meet these requirements, we let the user supply a name, a gender and
 3. Plots of the most and least popular names by gender over the given time range, 
 4. Plots of the biggest progressions and regressions by gender over the given time range.  
 
- If no name was provided :  
+If no name was provided : 
+{:start="5"} 
 5. A map of name diversity by department over the given time range,
 6. When selecting a department from the map, a plot of name diversities by gender over the given time range.  
 
- If a name was provided :  
+If a name was provided :  
+{:start="7"}
 7. A map of the frequency of that name by department over the given time range,
 8. A plot of the national frequency of that name over the given time range.
 
