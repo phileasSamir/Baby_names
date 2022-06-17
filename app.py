@@ -37,7 +37,7 @@ def index():
         name = request.form["name"].upper()
     if len(sex) == 1:
         displaysex = dictsex[sex[0]]
-    return render_template('index.html', name=name, sex=displaysex, yearmin=yearmin, yearmax=yearmax)
+    return render_template('index.html', name=name, displaysex=displaysex, sex=sex, yearmin=yearmin, yearmax=yearmax)
 
 #########################
 ### Altair Data Routes

@@ -39,7 +39,7 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active">
-          <li><a href="github.com/phileasSamir/Baby_names">Our GitHub</a></li>
+          <li><a href="https://github.com/phileasSamir/Baby_names">Our GitHub</a></li>
           <li><a href="https://altair-viz.github.io/index.html">Altair</a></li>
           <li><a href="https://vega.github.io/vega-lite/">Vega-Lite</a></li>
           <li><a href="http://d3js.org/">D3</a></li>
@@ -73,17 +73,27 @@
           <div><input name="name" value="{{ name }}" id="name" type="text"></div>
           <br>
           <div>
-            <label for="sex">Sexe</label>
+            <label for="sex">Sex</label>
             <select name="sex" id="sex">
+              {% if sex[0]==2 and sex|length==1 %}
+              <option value="1">Male</option>
+              <option value="2" selected>Female</option>
+              <option value="">Either</option>
+              {% elif sex|length==2 %}
               <option value="1">Male</option>
               <option value="2">Female</option>
+              <option value="" selected>Either</option>
+              {% else %}
+              <option value="1" selected>Male</option>
+              <option value="2">Female</option>
               <option value="">Either</option>
+              {% endif %}
             </select>
           </div>
           <br>
-          <div><label for="yearmin">Année de début</label><input name="yearmin" value="{{ yearmin }}" min="1900" max="2020" id="yearmin" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>1900</span></div>
+          <div><label for="yearmin">Start year</label><input name="yearmin" value="{{ yearmin }}" min="1900" max="2020" id="yearmin" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>1900</span></div>
           <br>
-          <div><label for="yearmax">Année de fin</label><input name="yearmax" value="{{ yearmax }}" min="1900" max="2020" id="yearmax" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>2020</span></div>
+          <div><label for="yearmax">End year</label><input name="yearmax" value="{{ yearmax }}" min="1900" max="2020" id="yearmax" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>2020</span></div>
         </form>
         <br>
         <button type="submit" form="formsearch" value="search" style="font-size: 18px;">Search</button>
@@ -94,7 +104,7 @@
           <div><input name="name" value="Lucien" id="name" type="text"></div>
           <br>
           <div>
-            <label for="sex">Sexe</label>
+            <label for="sex">Sex</label>
             <select name="sex" id="sex">
               <option value="1">Male</option>
               <option value="2">Female</option>
@@ -102,9 +112,9 @@
             </select>
           </div>
           <br>
-          <div><label for="yearmin">Année de début</label><input name="yearmin" value="1900" min="1900" max="2020" id="yearmin" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>1900</span></div>
+          <div><label for="yearmin">Start year</label><input name="yearmin" value="1900" min="1900" max="2020" id="yearmin" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>1900</span></div>
           <br>
-          <div><label for="yearmax">Année de fin</label><input name="yearmax" value="2020" min="1900" max="2020" id="yearmax" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>2020</span></div>
+          <div><label for="yearmax">End year</label><input name="yearmax" value="2020" min="1900" max="2020" id="yearmax" type="range" oninput="this.nextElementSibling.textContent = this.value;"><span>2020</span></div>
         </form>
         <br>
         <button type="submit" form="formsearch" value="search" style="font-size: 18px;">Search</button>
@@ -116,7 +126,7 @@
         <h3>Your search: </h3>
         <ul>
           <li><b><i>Name</i></b> : {{ name }}</li>
-          <li><b><i>Sex</i></b> : {{ sex }}</li>
+          <li><b><i>Sex</i></b> : {{ displaysex }}</li>
           <li><b><i>Range</i></b> : {{ yearmin }}-{{ yearmax }}</li>
         </ul>
       </div>
