@@ -14,14 +14,10 @@ In order to meet these requirements, we let the user supply a name, a gender and
 2. A plot of the volatility of names by gender over the given time range, i.e. the biggest progression in % and the biggest regression in % by year,
 3. Plots of the most and least popular names by gender over the given time range, 
 4. Plots of the biggest progressions and regressions by gender over the given time range.  
-
 If no name was provided : 
-{:start="5"} 
 5. A map of name diversity by department over the given time range,
 6. When selecting a department from the map, a plot of name diversities by gender over the given time range.  
-
-If a name was provided :  
-{:start="7"}
+If a name was provided : 
 7. A map of the frequency of that name by department over the given time range,
 8. A plot of the national frequency of that name over the given time range.
 
