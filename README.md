@@ -26,10 +26,11 @@ In order to meet these requirements, we let the user supply a name, a gender and
 There can be several ways to express popularity and progression. We thought that the absolute count of a given name is not a reliable value, as it does not take into account the evolution of natality for instance. We rather calculated frequencies, at different scales (dep. or national), which is the ratio of the name count divided by all the births of the same sex for a given year.  
 The most/least popular name is the name that has the highest average national frequency over the considered time range.  
 The progressions are calculated as a difference of the national frequency from one year to another. So a "+1" progression could mean "from 10% frequency to 11% frequency", and also "from 20% to 21%". We could have made a relative progression, but we did not like the fact that a 1-to-2%-evolution would be a +100% progression, and a 10-to-15%-one would "only" be +50%, even though it is more impressive at a global scale.
+We excluded the "_PRENOM_RARES" rows as well as rows with missing department or year values.
 
 ### Answering the questions
 - *How do baby names evolve over time?* : all plots participate in the answer.
-- *Are there names that have consistently remained popular or unpopular?* : we provide the most popular names and unpopular names over any given time range (plot 3), and we provide the frequency over time for any given name (plot 8).
+- *Are there names that have consistently remained popular or unpopular?* : we provide the most popular names and unpopular names over any given time range (plot 3), and we provide the frequency over time for any given name (plot 8). It should be noted that due to privacy reasons, "unpopular names" are the most unpopular excluding names with frequencies that are too low (that are grouped under "_PRENOMS_RARES" or anonymized with "XX" department value, more info on the Insee website).
 - *Are there some that were suddenly or briefly popular or unpopular? Are there trends in time?* : we can find both "fads" and long-term trends thanks to plots 3, 4 and 8.
 - *Is there a regional effect in the data?* : map 5 shows diversity by department.
 - *Are some names more popular in some regions? Are popular names generally popular across the whole country?* : map 7 shows the popularity of a name by department.
