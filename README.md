@@ -41,3 +41,4 @@ We provide additional remarks in the web application.
 2. Run the `Altair` notebook.
 3. We created a webapp thanks to this repo : https://github.com/lemoncyb/flasked-altair.git. It provides better interactivity. You can run it with `python app.py`, and open it in your browser.
 4. You can find the initial sketches in the `sketches` directory.
+5. You can find .png files of the dashboards in the `figs` directory.
