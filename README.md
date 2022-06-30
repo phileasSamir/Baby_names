@@ -17,10 +17,11 @@ In order to meet these requirements, we let the user supply a name, a gender and
 4. Plots of the biggest progressions and regressions by gender over the given time range.  
 **If no name was provided :**
 5. A map of name diversity by department over the given time range,
-6. When selecting a department from the map, a plot of name diversities by gender over the given time range.  
-**If a name was provided :** 
+6. When selecting a department from the map, a plot of name diversities by gender over the given time range in the selected department (before selecting a department, the national diversity is displayed).  
+**If a name is provided :** 
 7. A map of the frequency of that name by department over the given time range,
-8. A plot of the national frequency of that name over the given time range.
+8. A plot of the frequency of that name in the department over the given time range (before selecting a department, the national frequency is displayed).
+Please note that default selections work in the Altair notebook, but do not work in the app, hence you might see some weird curves for plots 6 and 8 until a selection is made.
 
 ### Choices made
 There can be several ways to express **popularity** and **progression**. We thought that the absolute count of a given name is not a reliable value, as it does not take into account the evolution of natality for instance. We rather calculated frequencies, at different scales (dep. or national), which is the ratio of the name count divided by all the births of the same sex for a given year.  
@@ -43,7 +44,6 @@ We think interactivity is the best way to make a visualization adaptable to many
 If no selection is made on the map, **line-plot 6** and **line-plot 8** show national diversity and name frequency, respectively.
 - *Are there gender effects in the data? Does popularity of names given to both sexes evolve consistently?* : As we mentioned, most plots differentiate over sex. We provide two line-plots that show the biggest changes in frequency over the provided time range (we see that female names tend to be more diverse over the entire time range, but volatility seems to be comparable for both sexes).
 We provide additional remarks and trivia in the web application.
-Please note that default selections work in the Altair notebook, but do not work in the app, hence you might see some weird curves for plots 6 and 8 until a selection is made.
 
 ### How to make it work :
 You can find the necessary data here: https://perso.telecom-paristech.fr/eagan/new/class/igr204/data/dpt2020.csv
