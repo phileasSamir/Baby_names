@@ -68,7 +68,7 @@ def podium_prenom_par_an(df, year, s, top=1):
     else:
         return df.nsmallest(1,["progression"])
 
-# top des progression des garçons
+# top des progressions des garçons
 table1_top = pd.concat([podium_prenom_par_an(df_p, year , 1 , 1) for year in range(1900, 2021)], axis = 0)
 # Top des regressions des garçons
 table1_bottom = pd.concat([podium_prenom_par_an(df_p, year , 1 , 0) for year in range(1900, 2021)], axis = 0)
@@ -322,7 +322,7 @@ def data_map():
     ######### MAP ##########
     if not name or name=="UNIQUE":
         # Carte par défaut
-        select_dpt = alt.selection_single(name="dpt", fields=['dpt'], init={"dpt":64})#, bind=input_dropdown)
+        select_dpt = alt.selection_single(name="dpt", fields=['dpt'], init={"dpt":0})#, bind=input_dropdown)
         
         grouped1 = df[(df["annais"] >= yearmin) & (df["annais"] <= yearmax)][["dpt","nb_distinct_dpt"]].drop_duplicates().groupby(["dpt"], as_index=False).mean()
         grouped1 = depts.merge(grouped1, how='left', left_on='code', right_on='dpt') # Add geometry data back in
@@ -348,6 +348,7 @@ def data_map():
         graphe = graphe.transform_filter(select_dpt).properties(width=400, height=500)
 
     elif name!="UNIQUE":
+        select_dpt = alt.selection_single(fields=['dpt'], init={'dpt':0})#, bind=input_dropdown)
         # Carte après filtrage d'un nom
         grouped2 = df[(df["annais"]>=yearmin) & (df["annais"]<=yearmax) & (df["preusuel"]==name) & (df["sexe"].apply(lambda x: x in sex))].groupby(['dpt', 'preusuel', 'sexe'], as_index=False).sum()
         grouped2 = depts.merge(grouped2, how='left', left_on='code', right_on='dpt') # Add geometry data back in
@@ -357,19 +358,21 @@ def data_map():
         carte = alt.Chart(grouped2).mark_geoshape(stroke='white').encode(
                     tooltip=['nom', 'frequence'],
                     color=alt.Color('frequence', scale=alt.Scale(scheme='yellowgreen')),
-                ).properties(width=500, height=500)# .configure(background = "black")
+                ).properties(width=500, height=500).add_selection(select_dpt
+                )# .configure(background = "black")
         
         # Evoulution du prénom choisi sur la période (échelle nationale)
-        graphe = alt.Chart(df[["annais","preusuel","sexe","freq_an"]].loc[
+        graphe = alt.Chart(df[["annais","preusuel","sexe","freq_dep_an", "dpt"]].loc[
                                     (df.preusuel == name) & (df.sexe.apply(lambda x: x in sex)) & 
                                     (df.annais >= yearmin) & (df.annais <= yearmax)
                                 ].drop_duplicates(),
                         #width=800, height=400
                             ).mark_line().encode(
                         x=alt.X('annais:Q', scale=alt.Scale(zero=False), title="Year"),
-                        y=alt.Y('freq_an:Q', title="Frequency"),
+                        y=alt.Y('freq_dep_an:Q', title="Frequency"),
                         color = alt.Color('sexe:N', legend=None)
-        ).properties(width=400, height=500, title=f"Evolution for {name} ({displaysex}) between {yearmin} and {yearmax}")
+        ).properties(width=400, height=500, title=f"Evolution for {name} ({displaysex}) between {yearmin} and {yearmax}"
+        ).transform_filter(select_dpt)
 
     chart = (pyramid | prog_reg_M_F) & podiums & (carte | graphe)
 
