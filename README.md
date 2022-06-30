@@ -20,7 +20,8 @@ In order to meet these requirements, we let the user supply a name, a gender and
 6. When selecting a department from the map, a plot of name diversities by gender over the given time range in the selected department (before selecting a department, the national diversity is displayed).  
 **If a name is provided :** 
 7. A map of the frequency of that name by department over the given time range,
-8. A plot of the frequency of that name in the department over the given time range (before selecting a department, the national frequency is displayed).
+8. A plot of the frequency of that name in the department over the given time range (before selecting a department, the national frequency is displayed).  
+
 Please note that default selections work in the Altair notebook, but do not work in the app, hence you might see some weird curves for plots 6 and 8 until a selection is made.
 
 ### Choices made
